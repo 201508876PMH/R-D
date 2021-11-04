@@ -1,0 +1,25 @@
+kind: Pod
+metadata:
+  labels:
+    foo: bar
+  namespace:
+    default
+spec:
+  restartPolicy: Never
+  containers:
+  - image: rapidsai/rapidsai:cuda11.0-runtime-ubuntu18.04-py3.8
+    imagePullPolicy: IfNotPresent
+    args: [dask-cuda-worker, $(DASK_SCHEDULER_ADDRESS), --rmm-pool-size, 10GB]
+    env:
+      - name: EXTRA_PIP_PACKAGES
+        value: numpy==1.19.5
+    name: dask-cuda-worker
+    #resources:
+    #  limits:
+    #    cpu: "2"
+    #    memory: 2G
+    #    aliyun.com/gpu-mem: 2 # requesting 1 GPU
+    #  requests:
+    #    cpu: "2"
+    #    memory: 2G
+    #    aliyun.com/gpu-mem: 2  # requesting 1 GPU
