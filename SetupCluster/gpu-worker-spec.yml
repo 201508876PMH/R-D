@@ -14,12 +14,19 @@ spec:
       - name: EXTRA_PIP_PACKAGES
         value: numpy==1.19.5
     name: dask-cuda-worker
-    #resources:
-    #  limits:
-    #    cpu: "2"
-    #    memory: 2G
+    volumeMounts:
+      - mountPath : /home/ubuntuserver/rapids/R-D/pv-claim
+        name: pv-storage
+  volumes:
+    - name: pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim  
+  resources:
+    limits:
+      cpu: "1"
+      memory: 1G
     #    aliyun.com/gpu-mem: 2 # requesting 1 GPU
-    #  requests:
-    #    cpu: "2"
-    #    memory: 2G
+    requests:
+      cpu: "1"
+      memory: 1G
     #    aliyun.com/gpu-mem: 2  # requesting 1 GPU
