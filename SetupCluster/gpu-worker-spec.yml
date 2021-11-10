@@ -12,21 +12,25 @@ spec:
     args: [dask-cuda-worker, $(DASK_SCHEDULER_ADDRESS), --rmm-pool-size, 10GB]
     env:
       - name: EXTRA_PIP_PACKAGES
-        value: numpy==1.19.5
+        value: numpy==1.21.2
+      - name: NVIDIA_VISIBLE_DEVICES
+        value: "all"
+      - name: MALLOC_TRIM_THRESHHOLD_
+        value: 65536
     name: dask-cuda-worker
     volumeMounts:
       - mountPath : /home/ubuntuserver/rapids/R-D/pv-claim
         name: pv-storage
+    resources:
+      limits:
+        cpu: "2"
+        memory: 5G
+        aliyun.com/gpu-mem: 1 # requesting 1 GPU
+      requests:
+        cpu: "2"
+        memory: 5G
+        aliyun.com/gpu-mem: 1  # requesting 1 GP
   volumes:
     - name: pv-storage
       persistentVolumeClaim:
         claimName: task-pv-claim  
-  resources:
-    limits:
-      cpu: "1"
-      memory: 1G
-    #    aliyun.com/gpu-mem: 2 # requesting 1 GPU
-    requests:
-      cpu: "1"
-      memory: 1G
-    #    aliyun.com/gpu-mem: 2  # requesting 1 GPU

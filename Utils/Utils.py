@@ -1,4 +1,5 @@
 from matplotlib import pyplot as plt
+import sys
 
 
 class Utils:
@@ -15,3 +16,9 @@ class Utils:
             ax.get_xaxis().set_visible(False)
             ax.get_yaxis().set_visible(False)
         plt.show()
+        
+        
+    def get_scheduler_ip(self):
+        with open('../ip.txt') as f:
+            lines = f.readlines()
+            return lines[0]
