@@ -15,7 +15,7 @@ spec:
         value: numpy==1.21.2
       - name: NVIDIA_VISIBLE_DEVICES
         value: "all"
-      - name: MALLOC_TRIM_THRESHHOLD_
+      - name: MALLOC_TRIM_THRESHOLD_
         value: 65536
     name: dask-cuda-worker
     volumeMounts:
